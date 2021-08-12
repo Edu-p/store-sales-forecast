@@ -1,97 +1,118 @@
-# store-sales-forecast-
+# store-sales-forecast
 
-# Increasing House Rocket's profit 
+## Predicting store's sales
 
-![image](https://user-images.githubusercontent.com/72039442/117654827-ac494780-b16c-11eb-959a-993098baf89f.png)
-
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Dirk_Rossmann_GmbH.jpg/1200px-Dirk_Rossmann_GmbH.jpg)
 
 # 1. Business Problem.
 
+Rossmann is one of the largest drug store chains in Europe with around 56,200 employees and more than 4000 stores across Europe.
 
-
-
-
-
+Rossmann store managers often have the difficult task of predicting their daily sales up to six weeks in advance.
+Store sales can be influenced by many factors, including:
+   - promotions, competition, school and state holidays, seasonality and location,...
+   
+Additionally, there are thousands of individual managers predicting sales based on their unique circumstances. As a result, in 2015, Rossmann saw that the accuracy of these prediction results could be quite varied and created a kaggle competition to challenge data scientists to create an efficient model that would help them with this all-important prediction.
+ 
 
 # 2. Business Assumptions.
 
 The assumptions about the business problem is as follows:
 
-- The National Realtors Association forecasts that sales prices of existing homes will average $ 218,500 this year, 5% higher than the $ 208,000 of 2014, and that new and existing home sales might reach 5.83 million in 2015, higher than in any year since the recession.
-- The national Case-Schiller index tracks repeat-sales home prices across the country. It reflected national price growth of 1.3% in 2012, 9.6% in 2013 and 6.6% in 2014.
+- "Sales are the lifeblood of a business. It's what helps you pay employees, cover operating expenses, buy more inventory, market new products and attract more investors. Sales forecasting is a crucial part of the financial planning of a business. It's a self-assessment tool that uses past and current sales statistics to intelligently predict future performance."
 
-![_2015_04_housing_market_2_case_schiller](https://user-images.githubusercontent.com/72039442/117127180-2430ff80-ad72-11eb-8f31-7acb474cc8f2.png)
+- "With an accurate sales forecast in hand, you can plan for the future. If your sales forecast says that during December you make 30 percent of your yearly sales, then you need to ramp up manufacturing in September to prepare for the rush. It might also be smart to invest in more seasonal salespeople and start a targeted marketing campaign right after Thanksgiving. One simple sales forecast can inform every other aspect of your business."
 
-- [Reference](https://smartasset.com/mortgage/housing-market-2015#:~:text=2015%20Forecast&text=The%20National%20Realtors%20Association%20forecasts,any%20year%20since%20the%20recession. )
+- "Sales forecasting is one of the most important business processes to running the business. It determines how the company invests and grows and can have a massive impact on company valuation."
 
 
-   
+References:
+   - https://money.howstuffworks.com/sales-forecasting1.htm
+   - https://www.clari.com/blog/the-importance-of-sales-forecasting/
+
+
 # 3. Solution Strategy
 
-My strategy to solve this challenge was:
-
-**Step 01. Data Description:** My goal is to use statistics metrics to identify data outside the scope of business.
-
-**Step 02. Feature Engineering:** Derive new attributes based on the original variables to better describe the phenomenon that will be modeled.
-
-**Step 03. Data Filtering:** Filter rows and select columns that do not contain information for modeling or that do not match the scope of the business.
-
-**Step 04. Exploratory Data Analysis:** Explore the data to find insights and better understand the business
-
-**Step 05. Convert Analysis to Business Values:** Convert the analysis that i´ve do into a business result.
-   - Group data by region (zipcode)
-   - Within each region, I will find the median real estate price
-   - I will suggest that the properties that are below the median price of each region and
-      that are in good condition are purchased
-   - Group the properties by region (zipcode) and by seasonality (Summer, winter)
-   - Set sales price:
-      - If the purchase price is higher than the region's median + seasonality:
-         - Sale price will be equal to the purchase price + 10%
-
-      - If the purchase price is less than the region's median + seasonality:
-         - Sale price will be equal to the purchase price + 30%
-
-**Step 6. Deploy Modelo to Production:** Publish the model in a cloud environment so that other people or services can use the results to improve the business decision.
+1. Business question:
+    - Forecast store sales in the next 6 weeks
+2. Understanding the business (it was invented to further contextualize our problem):
+    - Find out where the root problem comes from → the CFO needs to renovate the stores and he needs to know which ones he should invest the most
+        - For this, the forecast of 6 weeks of sales seems reasonable as a solution
+3. Data collection
+    - Available in kaggle
+4. Data cleaning
+    - Description of data
+        - Knowing the size of the problem we are facing
+    - Feature engineering
+        - Create new variables from the originals, aiming at a better visualization of them
+    - Filtering of variables
+        - Filter variables based on business bias (data that cannot be used by the company in general, data that will not be available at the time of prediction,...)
+        - This influences how we will model the algorithm
+5. Exploratory data analysis( EDA )
+    - Understand the business from the point of view of data
+    - Create the feeling, through plots and hypotheses, of which variables would be important for learning the model
+        - We generate insights, even causing a possible breach of beliefs in other employees
+6. Data modeling
+    - We separated the data, but now we need to prepare the data for machine learning models
+        - Encoding of categorical and numerical variables
+    - Feature selection using some ML algorithm, in this project it was Boruta
+        - We see the correlation of the analyzed variable with the answer
+7. Machine Learning Algorithms
+    - We initially implemented 1 baseline algorithm, 2 linear and 2 non-linear
+    - After that we apply crossvalidation to validate the performance of the models we choose
+8. Algorithm Evaluation
+    - We analyze the error from the point of view of model performance
+        - Looking at MPE, RMSE, MAE, MAPE
 
 # 4. Top 3 Data Insights
 
-**Hypothesis 01:** Does the season that you sell influence price?
+ 1. Stores with closer competitors should sell less.(common sense)
+      - FALSE, Stores with CLOSER COMPETITORS sell MORE.
+         - **Is it important for the model?** It might be important for the model, but in a weaker way
 
-**True.** As observed, on average, properties sold in the summer are 22,000 more expensive
-
-**Hypothesis 02:**  The valuation of the zipcode influences the price of the property?
-
-**True.** As observed, the cheapest zip code is, on average, 230k the price of the property, while the most expensive is 1.4m
-
-**Hypothesis 03:** If the condition of the property is bad, is it more than 30% devalued, in the mean?
-
-**True.** As observed, if the condition of the house is "bad" it is, on average, ≅40% cheaper than the condition of good condition
-
-
-# 5. Business Results
-
-Let's recap how many properties the House Rocket business team must analyze in this data set provided and how long they would take a decision, on average 
-   - let's consider that a professional can say in 1,5 min if that property can pass for a more refined analysis
-
-|Before-After   | Dataset size  | Analysis time  |        
-|:--------------|:--------------|:---------------|
-|Before         | 21613         | 22 days        |           
-|After          | 5629          | 6 days         |           
+ 2. Stores with larger assortments should sell more.
+      - FALSE, because stores with promotions active for a long time sell less after a certain period of promotion.
+         - **Is it important for the model?** No, low pearson
+ 3. Stores should sell more over the years.
+      - FALSE, Stores sell less over the years.
+         - **Is it important for the model?** Yes, very high correlation
 
 
-Our full original dataset contains records for **21k** properties. Suppose we are going to analyze all of them and decide which ones to buy, our result achieved a profit of 23% in relation to the properties purchased, which is higher than ≅15% that is usually obtained in a property sale. Thus, translating to commercial numbers. ( [Reference](https://smallbusiness.chron.com/reasonable-profit-margin-17989.html) ) 
+# 5. Machine Learning Model Applied
+Tests were made using different algorithms.
 
-|                        | Profit            |Percentage         |
-|:-----------------------|------------------:|------------------:|
-| WhichProperty          | \$627.113.399  | 22,9%             |
+# 6. Machine Learning Model Performance
+The chosen algorithm was the **XGBoost Regressor**. In addition, I made a performance calibration on it.
+
+#### Precision, Recall, ROC AUC and other metrics
+
+These are the metrics obtained from the test set.
+
+| MAE | MAPE | RMSE | 
+|-----------|---------|-----------|
+| 664.974996   | 0.097529 | 957.774225 |
 
 
-This means that having a portfolio of **21k** properties that would go through the selection of the model to check whether or not to buy it, in the worst expected scenario the portfolio would generate a profit of $ 627 million, much faster than it is today, having scope to analyze more possible purchases of **House Rocket** 
+The summary below shows the metrics comparison after running a cross validation score with stratified K-Fold with 10 splits in the full data set.
 
 
-# 6. Next Steps to Improve
+| Model Name | MAE | MAPE | RMSE | 
+|-----------|-----------|---------|-----------|
+|  Random Forest Regressor | 837.68 +/- 219.1  | 0.12 +/- 0.02 | 1256.08 +/- 320.36 |
+|  Linear Regression Regularized Model - Lasso | 2117.26 +/- 341.08  | 0.29 +/- 0.01 | 3061.0 +/- 503.47 |
 
-1. Put **more filters** in the analysis of properties 
-2. **Implement ML models** to improve the analysis
 
+
+# 7. Business Results
+
+You can see the results of the forecasts on your own phone (or computer) by accessing the bot on the telegram that will make the forecast in real time
+
+![telegram-bot](https://user-images.githubusercontent.com/72039442/128722507-d8a02fcf-d363-430f-9e39-984a79aab36e.gif)
+
+   - type /number_of_store (1 through 1115) to receive the sales prediction for that store
+
+
+# 10. Next Steps to Improve
+
+**1.** **Use more models to lower error metrics** .
 
