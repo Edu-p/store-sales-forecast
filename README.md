@@ -4,7 +4,7 @@
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Dirk_Rossmann_GmbH.jpg/1200px-Dirk_Rossmann_GmbH.jpg)
 
-# 1. Business Problem.
+# 1. Business Problem
 
 Rossmann is one of the largest drug store chains in Europe with around 56,200 employees and more than 4000 stores across Europe.
 
@@ -15,7 +15,7 @@ Store sales can be influenced by many factors, including:
 Additionally, there are thousands of individual managers predicting sales based on their unique circumstances. As a result, in 2015, Rossmann saw that the accuracy of these prediction results could be quite varied and created a kaggle competition to challenge data scientists to create an efficient model that would help them with this all-important prediction.
  
 
-# 2. Business Assumptions.
+# 2. Business Assumptions
 
 The assumptions about the business problem is as follows:
 
