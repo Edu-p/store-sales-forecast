@@ -84,7 +84,7 @@ Tests were made using different algorithms.
 # 6. Machine Learning Model Performance
 The chosen algorithm was the **XGBoost Regressor**. In addition, I made a performance calibration on it.
 
-#### Precision, Recall, ROC AUC and other metrics
+#### MAE, MAPE and RMSE
 
 These are the metrics obtained from the test set.
 
@@ -108,9 +108,10 @@ The summary below shows the metrics comparison after running a cross validation 
 You can see the results of the forecasts on your own phone (or computer) by accessing the bot on the telegram that will make the forecast in real time
 
 ![telegram-bot](https://user-images.githubusercontent.com/72039442/128722507-d8a02fcf-d363-430f-9e39-984a79aab36e.gif)
-
+   
+   - Link to access the results=>  t.me/rossmann_pred_edu_bot
    - type /number_of_store (1 through 1115) to receive the sales prediction for that store
-
+  
 
 # 10. Next Steps to Improve
 
